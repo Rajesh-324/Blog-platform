@@ -1,356 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Cyber Blog</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.min.js"></script>
-    <style>
-        body {
-            background: #0d0d1f;
-            color: #e2e8f0;
-            font-family: 'Arial', sans-serif;
-            overflow-x: hidden;
-        }
-        .hero {
-            background: linear-gradient(135deg, #ff00cc, #3333ff);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1610296660239-8ae6cd3f8b1b?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
-            background-size: cover;
-            opacity: 0.3;
-            z-index: 0;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        .masonry {
-            column-count: 1;
-            column-gap: 1.5rem;
-            padding: 1.5rem;
-        }
-        @media (min-width: 768px) { .masonry { column-count: 2; } }
-        @media (min-width: 1024px) { .masonry { column-count: 3; } }
-        .post-card {
-            break-inside: avoid;
-            margin-bottom: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .post-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
-        }
-        .neon-btn {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(255, 0, 204, 0.7);
-        }
-        .neon-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 0, 204, 1), 0 0 30px rgba(51, 51, 255, 0.8);
-            background-color: #ff00cc;
-        }
-        .neon-btn:active {
-            transform: scale(0.95);
-            box-shadow: 0 0 5px rgba(255, 0, 204, 0.5);
-        }
-        .neon-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.4s ease, height 0.4s ease;
-            pointer-events: none;
-        }
-        .neon-btn:active::after {
-            width: 200px;
-            height: 200px;
-            opacity: 0;
-        }
-        .tag {
-            transition: all 0.3s ease;
-            transform-origin: center;
-        }
-        .tag:hover {
-            transform: scale(1.2) rotate(5deg);
-            background-color: #3333ff;
-        }
-        .modal {
-            transition: opacity 0.3s ease;
-        }
-        .modal-content {
-            animation: neonFadeIn 0.5s ease;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        @keyframes neonFadeIn {
-            from { transform: scale(0.8); opacity: 0; box-shadow: none; }
-            to { transform: scale(1); opacity: 1; box-shadow: 0 0 20px rgba(167, 139, 250, 0.5); }
-        }
-        .ql-container {
-            min-height: 200px;
-            background: #1a1a2e;
-            color: #e2e8f0;
-            border-radius: 0.5rem;
-        }
-        .ql-toolbar {
-            background: #2d2d4b;
-            border-radius: 0.5rem 0.5rem 0 0;
-        }
-        .comment-section {
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        footer a, footer svg {
-            transition: color 0.3s ease;
-        }
-        footer a:hover, footer svg:hover {
-            color: #ff00cc;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Cyber Blog</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0d0d26;
+      color: #fff;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #ff5e62, #8a2be2);
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: 36px;
+    }
+    .hero p {
+      margin: 10px 0 20px;
+      font-size: 16px;
+      color: #f1f1f1;
+    }
+    .hero button {
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .hero button:hover {
+      background: #222;
+    }
+
+    /* Tabs */
+    .tabs {
+      background: #111133;
+      padding: 10px;
+      display: flex;
+      justify-content: flex-start;
+      gap: 15px;
+      border-bottom: 1px solid #333;
+    }
+    .tabs button {
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+    .tabs button:hover {
+      background: #1a1a40;
+      border-radius: 5px;
+    }
+
+    /* Search */
+    .search {
+      background: #111133;
+      padding: 10px;
+      text-align: center;
+    }
+    .search input {
+      width: 60%;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      background: #1a1a40;
+      color: #fff;
+    }
+
+    /* Posts Grid */
+    .posts {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
+    .post-card {
+      background: #1a1a40;
+      padding: 15px;
+      border-radius: 10px;
+      width: 280px;
+      box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+    }
+    .post-card h2 {
+      font-size: 18px;
+      margin: 0 0 10px;
+    }
+    .post-card p {
+      font-size: 14px;
+      color: #ccc;
+      margin: 0 0 15px;
+    }
+    .post-card .stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #aaa;
+    }
+    .post-card .stats span {
+      cursor: pointer;
+    }
+    .post-card .stats span:hover {
+      color: #fff;
+    }
+
+    /* Footer */
+    .footer {
+      background: #0d0d26;
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      border-top: 1px solid #333;
+    }
+    .footer a {
+      color: #ff5e62;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    .social-icons {
+      margin-top: 10px;
+    }
+    .social-icons a {
+      color: #fff;
+      margin: 0 5px;
+      font-size: 18px;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #1a1a40;
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+      box-shadow: 0 0 20px #8a2be2;
+    }
+    .modal-content h2 {
+      margin-top: 0;
+    }
+    .modal-content input,
+    .modal-content textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background: #0d0d26;
+      color: #fff;
+    }
+    .modal-content textarea {
+      resize: none;
+      height: 100px;
+    }
+    .modal-content button {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+    .modal-content .save {
+      background: #8a2be2;
+      color: #fff;
+    }
+    .modal-content .cancel {
+      background: #333;
+      color: #fff;
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col">
-    <header class="hero text-center py-16">
-        <div class="hero-content max-w-6xl mx-auto">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 drop-shadow-lg">Neon Cyber Blog</h1>
-            <p class="text-lg text-gray-200 mb-6">Unleash Your Stories in a Cyberpunk Universe</p>
-            <button class="neon-btn bg-violet-600 text-white px-6 py-3 rounded-lg" onclick="openPostModal(null)">Create Post</button>
-        </div>
-    </header>
-    <nav class="bg-[#1a1a2e] text-white p-4 sticky top-0 z-30 shadow-md">
-        <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-4">
-            <div class="flex space-x-4">
-                <button class="neon-btn px-4 py-2 rounded-lg" onclick="filterPosts('all')">All Posts</button>
-                <button class="neon-btn px-4 py-2 rounded-lg" onclick="sortByLikes()">Sort by Likes</button>
-            </div>
-            <div class="flex flex-wrap gap-2" id="tagCloud"></div>
-        </div>
-    </nav>
-    <main class="flex-1 max-w-6xl mx-auto p-6">
-        <div class="mb-6">
-            <input id="searchInput" type="text" placeholder="Search posts by title, content, or tags..." class="w-full p-3 bg-[#1a1a2e] text-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-400" oninput="filterPosts()">
-        </div>
-        <div id="postsContainer" class="masonry"></div>
-    </main>
-    <div id="postModal" class="modal fixed inset-0 bg-black bg-opacity-80 hidden flex items-center justify-center z-40">
-        <div class="modal-content p-6 rounded-lg w-full max-w-3xl">
-            <h2 id="modalTitle" class="text-2xl font-bold text-white mb-4">New Post</h2>
-            <input id="postTitle" type="text" placeholder="Post Title" class="w-full p-3 mb-4 bg-[#1a1a2e] text-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-400" required>
-            <div id="editor" class="mb-4"></div>
-            <input id="postTags" type="text" placeholder="Tags (comma-separated)" class="w-full p-3 mb-4 bg-[#1a1a2e] text-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-400">
-            <div class="flex justify-end space-x-4">
-                <button onclick="closePostModal()" class="neon-btn bg-gray-600 text-white px-4 py-2 rounded-lg">Cancel</button>
-                <button onclick="savePost()" class="neon-btn bg-violet-600 text-white px-4 py-2 rounded-lg">Save</button>
-            </div>
-        </div>
+<body>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Neon Cyber Blog</h1>
+    <p>Unleash Your Stories in a Cyberpunk Universe</p>
+    <button id="openModal">Create Post</button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button>All Posts</button>
+    <button>Sort by Likes</button>
+  </div>
+
+  <!-- Search -->
+  <div class="search">
+    <input type="text" placeholder="Search posts by title, content, or tags...">
+  </div>
+
+  <!-- Posts -->
+  <div class="posts" id="posts">
+    <div class="post-card">
+      <h2>Quick Motivation for Today</h2>
+      <p>Don't wait for the perfect moment. Take the moment and make it perfect! 😄</p>
+      <div class="stats">
+        <span>Comments (2)</span>
+        <span>Edit</span>
+        <span>Delete</span>
+      </div>
     </div>
-    <footer class="bg-[#1a1a2e] text-white py-6 mt-auto">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-sm">© 2025 Neon Cyber Blog. All rights reserved.</p>
-            <div class="flex space-x-6">
-                <a href="#" class="text-gray-300 hover:text-[#ff00cc]">About</a>
-                <a href="#" class="text-gray-300 hover:text-[#ff00cc]">Contact</a>
-            </div>
-            <div class="flex space-x-4">
-                <a href="https://twitter.com" target="_blank" class="text-gray-300 hover:text-[#ff00cc]">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 4.308 1.784 9.165 1.418 12 0 1.948-.896 3.487-2.474 4-4 1.153-2.472 1.577-5.141 1-8-.999.74-2.661 1.777-4-1z"/></svg>
-                </a>
-                <a href="https://facebook.com" target="_blank" class="text-gray-300 hover:text-[#ff00cc]">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879v-6.988h-2.54v-2.891h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
-                </a>
-                <a href="https://linkedin.com" target="_blank" class="text-gray-300 hover:text-[#ff00cc]">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.327-.024-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.048c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h-.003z"/></svg>
-                </a>
-            </div>
-        </div>
-    </footer>
-    <script>
-        let editor;
-        let sortByLikesActive = false;
-        document.addEventListener('DOMContentLoaded', () => {
-            editor = new Quill('#editor', {
-                theme: 'snow',
-                modules: { toolbar: [['bold', 'italic', 'underline'], ['link'], [{ 'list': 'ordered'}, { 'list': 'bullet' }]] }
-            });
-            loadPosts();
-            loadTagCloud();
-        });
-        function openPostModal(postId) {
-            const modal = document.getElementById('postModal');
-            const titleInput = document.getElementById('postTitle');
-            const tagsInput = document.getElementById('postTags');
-            const modalTitle = document.getElementById('modalTitle');
-            if (postId !== null) {
-                const posts = JSON.parse(localStorage.getItem('posts')) || [];
-                const post = posts.find(p => p.id === Number(postId));
-                if (post) {
-                    titleInput.value = post.title;
-                    editor.root.innerHTML = post.content;
-                    tagsInput.value = post.tags.join(', ');
-                    modalTitle.textContent = 'Edit Post';
-                    modal.dataset.postId = postId;
-                }
-            } else {
-                titleInput.value = '';
-                editor.root.innerHTML = '';
-                tagsInput.value = '';
-                modalTitle.textContent = 'New Post';
-                delete modal.dataset.postId;
-            }
-            modal.classList.remove('hidden');
-        }
-        function closePostModal() {
-            document.getElementById('postModal').classList.add('hidden');
-        }
-        function savePost() {
-            const title = document.getElementById('postTitle').value.trim();
-            const content = editor.root.innerHTML;
-            const tags = document.getElementById('postTags').value.split(',').map(tag => tag.trim()).filter(tag => tag);
-            if (!title || !content || content === '<p><br></p>') {
-                alert('Please fill in title and content.');
-                return;
-            }
-            const post = {
-                id: document.getElementById('postModal').dataset.postId ? Number(document.getElementById('postModal').dataset.postId) : Date.now(),
-                title,
-                content,
-                tags,
-                date: new Date().toLocaleString(),
-                likes: document.getElementById('postModal').dataset.postId ? (JSON.parse(localStorage.getItem('posts')).find(p => p.id === Number(document.getElementById('postModal').dataset.postId))?.likes || 0) : 0,
-                comments: document.getElementById('postModal').dataset.postId ? (JSON.parse(localStorage.getItem('posts')).find(p => p.id === Number(document.getElementById('postModal').dataset.postId))?.comments || []) : []
-            };
-            let posts = JSON.parse(localStorage.getItem('posts')) || [];
-            if (document.getElementById('postModal').dataset.postId) {
-                posts = posts.filter(p => p.id !== post.id);
-            }
-            posts.push(post);
-            localStorage.setItem('posts', JSON.stringify(posts));
-            closePostModal();
-            loadPosts();
-            loadTagCloud();
-        }
-        function loadPosts(filter = '', tag = 'all') {
-            const postsContainer = document.getElementById('postsContainer');
-            postsContainer.innerHTML = '';
-            let posts = JSON.parse(localStorage.getItem('posts')) || [];
-            if (sortByLikesActive) {
-                posts.sort((a, b) => (b.likes || 0) - (a.likes || 0));
-            } else {
-                posts.sort((a, b) => b.id - a.id);
-            }
-            posts.forEach(post => {
-                if ((filter && !post.title.toLowerCase().includes(filter.toLowerCase()) && !post.content.toLowerCase().includes(filter.toLowerCase()) && !post.tags.some(t => t.toLowerCase().includes(filter.toLowerCase()))) || (tag !== 'all' && !post.tags.includes(tag))) {
-                    return;
-                }
-                const postElement = document.createElement('div');
-                postElement.className = 'post-card p-6 rounded-lg';
-                postElement.innerHTML = `
-                    <h3 class="text-xl font-bold text-white mb-2">${post.title}</h3>
-                    <div class="text-gray-300 mb-4">${post.content.substring(0, 100)}${post.content.length > 100 ? '...' : ''}</div>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        ${post.tags.map(t => `<span class="tag bg-[#2d2d4b] text-white px-2 py-1 rounded text-sm cursor-pointer hover:bg-[#3333ff]" onclick="filterPosts(null, '${t}')">${t}</span>`).join('')}
-                    </div>
-                    <div class="flex justify-between items-center mb-4">
-                        <small class="text-gray-400">${post.date}</small>
-                        <button onclick="likePost(${post.id})" class="neon-btn text-violet-400 hover:text-violet-300">👍 ${post.likes || 0}</button>
-                    </div>
-                    <div class="flex justify-between items-center mb-4">
-                        <button onclick="openCommentModal(${post.id})" class="neon-btn text-violet-400 hover:text-violet-300">Comments (${post.comments?.length || 0})</button>
-                        <div>
-                            <button onclick="openPostModal(${post.id})" class="neon-btn text-violet-400 hover:text-violet-300 mr-4">Edit</button>
-                            <button onclick="deletePost(${post.id})" class="neon-btn text-red-400 hover:text-red-300">Delete</button>
-                        </div>
-                    </div>
-                    <div class="comment-section hidden" id="comments-${post.id}">
-                        <div class="mb-4">
-                            <input type="text" placeholder="Add a comment..." class="w-full p-2 bg-[#1a1a2e] text-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-400" onkeydown="if(event.key === 'Enter') addComment(${post.id}, this)">
-                        </div>
-                        <div>${post.comments?.map(c => `<p class="text-gray-300 mb-2">${c}</p>`).join('') || 'No comments yet.'}</div>
-                    </div>
-                `;
-                postsContainer.appendChild(postElement);
-            });
-        }
-        function loadTagCloud() {
-            const tagCloud = document.getElementById('tagCloud');
-            tagCloud.innerHTML = '';
-            const posts = JSON.parse(localStorage.getItem('posts')) || [];
-            const tags = [...new Set(posts.flatMap(post => post.tags))];
-            tags.forEach(tag => {
-                const tagElement = document.createElement('span');
-                tagElement.className = 'tag bg-[#2d2d4b] text-white px-2 py-1 rounded text-sm cursor-pointer hover:bg-[#3333ff]';
-                tagElement.textContent = tag;
-                tagElement.onclick = () => filterPosts(null, tag);
-                tagCloud.appendChild(tagElement);
-            });
-        }
-        function filterPosts(filter = null, tag = 'all') {
-            const searchFilter = filter !== null ? filter : document.getElementById('searchInput').value;
-            loadPosts(searchFilter, tag);
-        }
-        function sortByLikes() {
-            sortByLikesActive = !sortByLikesActive;
-            filterPosts();
-        }
-        function likePost(id) {
-            let posts = JSON.parse(localStorage.getItem('posts')) || [];
-            const post = posts.find(p => p.id === Number(id));
-            if (post) {
-                post.likes = (post.likes || 0) + 1;
-                localStorage.setItem('posts', JSON.stringify(posts));
-                loadPosts(document.getElementById('searchInput').value);
-            }
-        }
-        function addComment(postId, input) {
-            const comment = input.value.trim();
-            if (!comment) return;
-            const posts = JSON.parse(localStorage.getItem('posts')) || [];
-            const post = posts.find(p => p.id === Number(postId));
-            if (post) {
-                post.comments = post.comments || [];
-                post.comments.push(comment);
-                localStorage.setItem('posts', JSON.stringify(posts));
-                input.value = '';
-                loadPosts(document.getElementById('searchInput').value);
-            }
-        }
-        function openCommentModal(postId) {
-            const commentSection = document.getElementById(`comments-${postId}`);
-            if (commentSection) {
-                commentSection.classList.toggle('hidden');
-            }
-        }
-        function deletePost(id) {
-            let posts = JSON.parse(localStorage.getItem('posts')) || [];
-            posts = posts.filter(p => p.id !== Number(id));
-            localStorage.setItem('posts', JSON.stringify(posts));
-            loadPosts();
-            loadTagCloud();
-        }
-    </script>
+    <div class="post-card">
+      <h2>AI is Changing the World</h2>
+      <p>Artificial Intelligence is everywhere - from healthcare and education to self-driving cars!</p>
+      <div class="stats">
+        <span>Comments (4)</span>
+        <span>Edit</span>
+        <span>Delete</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    © 2025 Neon Cyber Blog. All rights reserved.
+    <div class="social-icons">
+      <a href="#">🐦</a>
+      <a href="#">📷</a>
+      <a href="#">🔗</a>
+    </div>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="postModal">
+    <div class="modal-content">
+      <h2>New Post</h2>
+      <input type="text" id="postTitle" placeholder="Post Title">
+      <textarea id="postContent" placeholder="Write your post..."></textarea>
+      <input type="text" id="postTags" placeholder="Tags (comma-separated)">
+      <button class="cancel" id="closeModal">Cancel</button>
+      <button class="save" id="savePost">Save</button>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("postModal");
+    const openBtn = document.getElementById("openModal");
+    const closeBtn = document.getElementById("closeModal");
+    const saveBtn = document.getElementById("savePost");
+    const postsContainer = document.getElementById("posts");
+
+    openBtn.onclick = () => modal.style.display = "flex";
+    closeBtn.onclick = () => modal.style.display = "none";
+
+    saveBtn.onclick = () => {
+      const title = document.getElementById("postTitle").value;
+      const content = document.getElementById("postContent").value;
+      if (title && content) {
+        const newPost = document.createElement("div");
+        newPost.classList.add("post-card");
+        newPost.innerHTML = `
+          <h2>${title}</h2>
+          <p>${content}</p>
+          <div class="stats">
+            <span>Comments (0)</span>
+            <span>Edit</span>
+            <span>Delete</span>
+          </div>
+        `;
+        postsContainer.appendChild(newPost);
+        modal.style.display = "none";
+      }
+    };
+  </script>
+
 </body>
-</html>
+</html>      
