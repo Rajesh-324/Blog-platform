@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Cyber Blog</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff4500, #8a2be2);
+            color: white;
+            overflow-x: hidden;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 5px 0;
+        }
+        .header button {
+            background-color: #9370db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .nav {
+            background-color: #1a1a2e;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .nav button {
+            background: none;
+            border: 2px solid #ff4500;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .nav input {
+            width: 50%;
+            padding: 5px;
+            background-color: #16213e;
+            border: none;
+            color: white;
+        }
+        .posts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .post {
+            background-color: #16213e;
+            width: 30%;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+        }
+        .post h3 {
+            margin: 0;
+        }
+        .post p {
+            color: #a9a9a9;
+        }
+        .post .actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        .post .actions button {
+            background: none;
+            color: #ff4500;
+            border: 1px solid #ff4500;
+            padding: 5px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: #16213e;
+            margin: 15% auto;
+            padding: 20px;
+            width: 50%;
+            border-radius: 5px;
+        }
+        .modal-content input, .modal-content textarea {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #1a1a2e;
+            border: none;
+            color: white;
+        }
+        .modal-content button {
+            background-color: #9370db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Neon Cyber Blog</h1>
+        <p>Unleash Your Stories in a Cyberpunk Universe</p>
+        <button onclick="document.getElementById('postModal').style.display='block'">Create Post</button>
+    </div>
+    <div class="nav">
+        <button>All Posts</button>
+        <button>Sort by Likes</button>
+        <input type="text" placeholder="Search posts by title, content, or tags...">
+    </div>
+    <div class="posts">
+        <div class="post">
+            <h3>Quick Motivation for Today</h3>
+            <p>"Don't wait for the perfect moment. Take the moment and make it perfect." - Smal...</p>
+            <p>18/09/2025, 9:47:46 am</p>
+            <div class="actions">
+                <span>Likes (0)</span>
+                <div>
+                    <button>Comments (0)</button>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+        </div>
+        <div class="post">
+            <h3>AI is Changing the World</h3>
+            <p>Artificial Intelligence is everywhere — from healthcare and education to self-driving cars...</p>
+            <p>18/09/2025, 9:45:26 am</p>
+            <div class="actions">
+                <span>Likes (0)</span>
+                <div>
+                    <button>Comments (0)</button>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>© 2025 Neon Cyber Blog. All rights reserved.</p>
+        <span>About | Contact</span>
+    </footer>
+    <div id="postModal" class="modal">
+        <div class="modal-content">
+            <h2>New Post Neon Cyber Blog</h2>
+            <input type="text" placeholder="Post Title">
+            <textarea placeholder="Content..."></textarea>
+            <input type="text" placeholder="Tags (comma-separated)">
+            <button onclick="this.parentElement.parentElement.style.display='none'">Cancel</button>
+            <button>Save</button>
+        </div>
+    </div>
+    <script>
+        // Basic JavaScript for modal functionality
+        document.querySelectorAll('.post .actions button').forEach(button => {
+            button.addEventListener('click', function() {
+                if (this.textContent === 'Edit') {
+                    document.getElementById('postModal').style.display = 'block';
+                } else if (this.textContent === 'Delete') {
+                    this.closest('.post').remove();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
